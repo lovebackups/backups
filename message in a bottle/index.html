@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message in a Bottle</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background-color: #ebcd87;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            padding: 20px;
+            text-align: center;
+        }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+        .modal button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            background: #eedf82;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .modal button:hover {
+            background: #f3de84;
+        }
+        .container {
+            position: relative;
+            text-align: center;
+            display: none;
+        }
+        .bottle {
+            width: 400px;
+            height: 750px;
+            background: url('https://images.vexels.com/media/users/3/182680/isolated/preview/bd90f1e8800e434708865043620a28bc-hand-drawn-bottle.png') no-repeat center;
+            background-size: contain;
+            cursor: pointer;
+            position: relative;
+        }
+        .message-box {
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: #f5f5dc;
+            padding: 5vw;
+            width: 80vw;
+            max-width: 500px;
+            height: auto;
+            min-height: 250px;
+            border-radius: 15px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.5s ease-in-out, top 1s ease-in-out;
+            background-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
+            background-size: cover;
+            border: 3px solid #c4a484;
+            font-family: 'Times New Roman', serif;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+        .message-box.active {
+            transform: translate(-50%, -50%) scale(1);
+            top: 50%;
+        }
+        .message-text {
+            flex: 1;
+            padding: 15px;
+            overflow: hidden;
+            text-align: center;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        .nav-buttons button {
+            background: none;
+            border: none;
+            font-size: 25px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 25px;
+            cursor: pointer;
+            color: crimson;
+            align-self: flex-end;
+        }
+        @media (max-width: 768px) {
+            .bottle {
+                width: 200px;
+                height: 400px;
+            }
+            .message-box {
+                width: 95vw;
+                font-size: 1.2rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .bottle {
+                width: 150px;
+                height: 300px;
+            }
+            .message-box {
+                width: 98vw;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <p>Someone sent you a message in a bottle. Open?</p>
+            <button onclick="startExperience()">Open</button>
+        </div>
+    </div>
+    
+    <audio id="backgroundMusic" autoplay loop>
+        <source src="./assets/message.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <div class="container" id="mainContent">
+        <div class="bottle" onclick="openMessage()"></div>
+        <div class="message-box" id="messageBox">
+            <button class="close-btn" onclick="closeMessage()">&times;</button>
+            <div class="message-text" id="messageText">
+            </div>
+            <div class="nav-buttons">
+                <button onclick="prevMessage()">&#8592;</button>
+                <button onclick="nextMessage()">&#8594;</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let messages = [
+            "My dearest love, from the very first moment our eyes met, my heart knew you were the one. Every day with you is a new adventure, a new reason to fall deeper in love with you. You are my safe place, my comfort, my joy. You are the reason I wake up with a smile and go to sleep feeling blessed...",
+            "Through every season, through every storm, my love for you only grows stronger. No matter where life takes us, I promise to stand by your side, to support your dreams, and to love you unconditionally. Every laugh we share, every tear we wipe away, every hug that feels like home – these are the moments that define our love...",
+            "Forever is not long enough for me to show you how much you mean to me. You are my heart, my soul, my greatest love story. No matter what challenges come our way, my love for you will remain unshaken, unwavering. With you, I have found the love I never knew I needed, and I promise to cherish you always. You are my forever and always."
+        ];
+        let messageIndex = 0;
+
+        function startExperience() {
+            document.getElementById("modal").style.display = "none";
+            document.getElementById("mainContent").style.display = "block";
+            updateMessage();
+        }
+
+        function openMessage() {
+            document.getElementById("messageBox").classList.add("active");
+            updateMessage();
+        }
+        function closeMessage() {
+            document.getElementById("messageBox").classList.remove("active");
+        }
+        function nextMessage() {
+            if (messageIndex < messages.length - 1) {
+                messageIndex++;
+                updateMessage();
+            }
+        }
+        function prevMessage() {
+            if (messageIndex > 0) {
+                messageIndex--;
+                updateMessage();
+            }
+        }
+        function updateMessage() {
+            document.getElementById("messageText").innerHTML = `<p>${messages[messageIndex]}</p>`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Birthday Card</title>
+    <!-- Google Font-->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Stylesheet -->
+    <style>
+        * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  background-color: #e8c8d5;
+  overflow: hidden;
+}
+.card {
+  width: 640px;
+  height: 400px;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  -webkit-perspective: 1200px;
+  perspective: 1200px;
+  transition: 1s;
+}
+.card:hover {
+  transform: rotate(-5deg);
+}
+.card:hover .outside {
+  transform: rotateY(-130deg);
+}
+.outside,
+.inside {
+  height: 100%;
+  width: 50%;
+  position: absolute;
+  left: 50.1%;
+}
+.inside {
+  background: linear-gradient(to right, #e7e7e7, #ffffff 30%);
+  line-height: 3;
+  padding: 0 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  left: 50%;
+}
+.outside {
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  z-index: 1;
+  transform-origin: left;
+  transition: 2s;
+  cursor: pointer;
+}
+.front,
+.back {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: rotateX(0deg);
+}
+.front {
+  background-color: #ffffff;
+}
+.back {
+  transform: rotateY(180deg);
+  background: linear-gradient(to left, #e7e7e7, #ffffff 30%);
+}
+.outside p {
+  font-size: 23px;
+  text-transform: uppercase;
+  margin-top: 30px;
+  text-align: center;
+  letter-spacing: 6px;
+  color: #000046;
+}
+.page {
+  display: none;
+  font-size: 16px;
+  text-align: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.page.active {
+  display: block;
+  opacity: 1;
+}
+.navigation {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+button {
+  background-color: #ff69b4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 5px;
+}
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
+    </style>
+  </head>
+  <body>
+    <div class="card" id="card">
+      <div class="outside">
+        <div class="front">
+          <p>Happy Birthday</p>
+          <img src="https://static.vecteezy.com/system/resources/previews/031/400/196/non_2x/cute-teddy-bear-watercolor-illustration-free-png.png" alt="Cute Bear" style="display: block; margin: 20px auto; width: 250px; max-width: 100%; height: auto;">
+        </div>
+        <div class="back"></div>
+      </div>
+      <div class="inside">
+        <div class="page active" id="page1" style="padding-bottom: 100px;">
+          <p>Happy Birthday, my love! 🎉💖</p>
+          <p>Every moment with you is a treasure, and today, I celebrate the amazing person you are. You bring so much joy, love, and light into my life, and I am endlessly grateful for you.</p>
+        </div>
+        <div class="page" id="page2" style="padding-bottom: 100px;">
+          <p>As you turn another year older, I want to remind you how incredibly special you are to me. Your kindness, laughter, and love fill my heart in ways I can't even describe.</p>
+        </div>
+        <div class="page" id="page3" style="padding-bottom: 100px;">
+          <p>May this year bring you endless happiness, exciting adventures, and all the love your heart desires. I will always be by your side, cheering for you and loving you endlessly. 💕</p>
+        </div>
+        <div class="navigation" style="position: absolute; top: 50%; right: -80px; transform: translateY(-50%); display: flex; flex-direction: column; z-index: 10; padding: 15px 0;">
+          <button onclick="prevPage()">⬅️</button>
+          <button onclick="nextPage()">➡️</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      let currentPage = 1;
+      function showPage(pageNumber) {
+        document.querySelectorAll(".page").forEach((page, index) => {
+          page.classList.remove("active");
+          if (index + 1 === pageNumber) {
+            page.classList.add("active");
+          }
+        });
+      }
+      function nextPage() {
+        if (currentPage < 3) {
+          currentPage++;
+          showPage(currentPage);
+        }
+      }
+      function prevPage() {
+        if (currentPage > 1) {
+          currentPage--;
+          showPage(currentPage);
+        }
+      }
+    </script>
+  </body>
+</html>

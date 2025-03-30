@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open the Box</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100vw;
+            background-color: #f8f8f8;
+            overflow: hidden;
+        }
+        .container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        img {
+            max-width: 95vw;
+            max-height: 85vh;
+            height: auto;
+            transition: opacity 0.5s ease-in-out;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #ff6600;
+            color: white;
+            border-radius: 5px;
+        }
+        #toggleButton {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .heart-button {
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: url('./assets/heart.png') no-repeat center;
+            background-size: contain;
+            border: none;
+            cursor: pointer;
+            display: none;
+        }
+        .music-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #008000;
+            color: white;
+            border-radius: 5px;
+        }
+        #messageText {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p id="messageText">Click the heart for my message</p>
+        <img id="box" src="./assets/1.png" alt="Closed Box">
+        <button id="toggleButton" onclick="toggleBox()">Click Here</button>
+        <button id="heartButton" class="heart-button"></button>
+        <button id="musicButton" class="music-button" onclick="toggleMusic()">Play Background Music</button>
+        <div id="confetti-container"></div>
+        <audio id="audio" src="./assets/final audio.m4a"></audio>
+        <audio id="backgroundMusic" src="./assets/gluesong.mp3" loop></audio>
+    </div>
+    
+    <script>
+        let isOpen = false;
+        function toggleBox() {
+            const box = document.getElementById("box");
+            const button = document.getElementById("toggleButton");
+            const heartButton = document.getElementById("heartButton");
+            const messageText = document.getElementById("messageText");
+            
+            if (isOpen) {
+                box.src = "./assets/1.png";
+                box.alt = "Closed Box";
+                button.style.display = "block";
+                heartButton.style.display = "none";
+                messageText.style.display = "none";
+                isOpen = false;
+            } else {
+                box.src = "./assets/2.png";
+                box.alt = "Open Box with Cat";
+                button.style.display = "none";
+                heartButton.style.display = "block";
+                messageText.style.display = "block";
+                isOpen = true;
+            }
+        }
+        
+        function playAudio() {
+            const audio = document.getElementById("audio");
+            audio.play().catch(error => console.error("Audio play failed:", error));
+        }
+        
+        function toggleMusic() {
+            const music = document.getElementById("backgroundMusic");
+            const musicButton = document.getElementById("musicButton");
+            
+            if (music.paused) {
+                music.volume = 0.3; // Lower the background music volume
+                music.play();
+                musicButton.textContent = "Pause Background Music";
+            } else {
+                music.pause();
+                musicButton.textContent = "Play Background Music";
+            }
+        }
+        
+        document.getElementById("heartButton").addEventListener("click", playAudio);
+    </script>
+</body>
+</html>
