@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Card Game</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+        
+        body {
+            font-family: 'Comic Neue', cursive;
+            text-align: center;
+            background-color: #ffe4e1;
+            padding: 20px;
+        }
+        .game-container {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            grid-gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .card {
+            width: 100px;
+            height: 100px;
+            background: pink;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            user-select: none;
+        }
+        .card.flipped {
+            background: white;
+        }
+        .hidden {
+            visibility: hidden;
+        }
+        .cute-button {
+            padding: 12px 20px;
+            font-size: 16px;
+            margin: 10px auto;
+            display: block;
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 10px rgba(255, 105, 180, 0.5);
+        }
+        .cute-button:hover {
+            background-color: #ff1493;
+            transform: scale(1.05);
+        }
+        .modal {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            width: 300px;
+        }
+        .memory-slider {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .memory-slider img {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .memory-slider img.active {
+            opacity: 1;
+        }
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: pink;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            z-index: 1001;
+        }
+        .prev { left: 10px; }
+        .next { right: 10px; }
+    </style>
+</head>
+<body>
+    <div id="name-modal" class="modal" style="display: flex;">
+        <div class="modal-content">
+            <h2>Enter Your Name</h2>
+            <input type="text" id="username" placeholder="Your name...">
+            <button class="cute-button" onclick="startGame()">Start</button>
+        </div>
+    </div>
+    
+    <h2 id="game-title">Memory Card Game 💖</h2>
+    <p>Match the pairs to win!</p>
+    <div class="game-container" id="game-board"></div>
+    <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExeXlxYXBsN2JrY2U4cmNib3Y3NGR1ZnBuNTBoZmR0OHpqeTFwOWZ2eCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/qI1VGDoje5TX2/giphy.gif" alt="Celebration GIF" style="display: block; margin: 20px auto; width: 200px;">
+    <p id="message"></p>
+    <button id="memories-btn" class="cute-button" style="display: none; margin-top: 20px;" onclick="showMemories()">Memories with You..</button>
+    
+    <div id="memory-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>Our Memories 💞</h2>
+            <button class="slider-btn prev" onclick="prevSlide()">❮</button>
+            <div class="memory-slider">
+                <img src="https://ca-times.brightspotcdn.com/dims4/default/2ad8ae5/2147483647/strip/true/crop/3277x2294+0+0/resize/1200x840!/quality/75/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F5a%2F0d%2F7171314545daaf3b719da40b0944%2Fla-premiere-of-spider-man-no-way-home-47557.jpg" alt="Memory 1">
+                <img src="https://cdn.mos.cms.futurecdn.net/vLBwXcicFTDysPaEFWzSvR.jpg" alt="Memory 2">
+                <img src="https://emirateswoman.com/wp-content/uploads/2025/01/zendaya-tom-feature.jpg" alt="Memory 3">
+            </div>
+            <button class="slider-btn next" onclick="nextSlide()">❯</button>
+            <button class="cute-button" onclick="closeMemories()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let currentSlide = 0;
+
+        function startGame() {
+            const name = document.getElementById("username").value.trim();
+            if (name) {
+                document.getElementById("game-title").innerText = `Memory Card Game for ${name}`;
+                document.getElementById("name-modal").style.display = "none";
+                createBoard();
+            } else {
+                alert("Please enter your name!");
+            }
+        }
+
+        function createBoard() {
+            const icons = ['❤️', '💌', '🌹', '💖', '❤️', '💌', '🌹', '💖'];
+            let shuffledIcons = [...icons].sort(() => Math.random() - 0.5);
+            const board = document.getElementById("game-board");
+            board.innerHTML = "";
+            shuffledIcons.forEach((icon, index) => {
+                const card = document.createElement("div");
+                card.classList.add("card");
+                card.dataset.icon = icon;
+                card.dataset.index = index;
+                card.innerHTML = "?";
+                card.addEventListener("click", flipCard);
+                board.appendChild(card);
+            });
+        }
+
+        function flipCard(event) {
+            const card = event.target;
+            if (!card.classList.contains("flipped") && flippedCards.length < 2) {
+                card.classList.add("flipped");
+                card.innerHTML = card.dataset.icon;
+                flippedCards.push(card);
+            }
+            if (flippedCards.length === 2) {
+                setTimeout(checkMatch, 800);
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            if (card1.dataset.icon === card2.dataset.icon) {
+                card1.classList.add("hidden");
+                card2.classList.add("hidden");
+                matchedPairs++;
+                if (matchedPairs === 4) {
+                    document.getElementById("message").innerText = "Congratulations! 🎉 You matched all pairs!";
+                    document.getElementById("memories-btn").style.display = "block";
+                }
+            } else {
+                card1.classList.remove("flipped");
+                card2.classList.remove("flipped");
+                card1.innerHTML = "?";
+                card2.innerHTML = "?";
+            }
+            flippedCards = [];
+        }
+
+        function showMemories() {
+            document.getElementById("memory-modal").style.display = "flex";
+            updateSlide();
+        }
+
+        function closeMemories() {
+            document.getElementById("memory-modal").style.display = "none";
+        }
+
+        function prevSlide() {
+            const slides = document.querySelectorAll(".memory-slider img");
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            updateSlide();
+        }
+
+        function nextSlide() {
+            const slides = document.querySelectorAll(".memory-slider img");
+            currentSlide = (currentSlide + 1) % slides.length;
+            updateSlide();
+        }
+
+        function updateSlide() {
+            const slides = document.querySelectorAll(".memory-slider img");
+            slides.forEach((img, i) => {
+                img.classList.toggle("active", i === currentSlide);
+            });
+        }
+    </script>
+</body>
+</html>

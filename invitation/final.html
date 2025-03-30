@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Itinerary</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fdf6e4;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            background: #fff7e6;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+        .itinerary {
+            font-size: 18px;
+            margin-top: 20px;
+            line-height: 1.5;
+        }
+        .back-button {
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            background-color: #cfe2f3;
+            color: black;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ITINERARY</h1>
+        <div class="itinerary">
+            <p><strong>DATE:</strong> <span id="selected-date"></span></p>
+            <p><strong>CUISINE:</strong> <span id="selected-cuisine"></span></p>
+            <p><strong>ACTIVITY:</strong> <span id="selected-activity"></span></p>
+        </div>
+        <p>*screenshot this and send it to me please :></p>
+        <button class="back-button" onclick="window.location.href='dash.html'">BACK</button>
+    </div>
+
+    <script>
+        function getStoredSelection(key) {
+            return localStorage.getItem(key) || 'Not selected';
+        }
+
+        document.getElementById("selected-date").innerText = getStoredSelection("selectedDate");
+        document.getElementById("selected-cuisine").innerText = getStoredSelection("selectedCuisine");
+        document.getElementById("selected-activity").innerText = getStoredSelection("selectedActivity");
+    </script>
+</body>
+</html>

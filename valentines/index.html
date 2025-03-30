@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Valentine's Invitation</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4713/4713789.png" type="image/png">
+
+
+    <!-- Add jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <div class="frame">
+        <!-- Envelope Open Button -->
+        <div id="button_open_envelope" style="text-align: center;">
+            Open
+        </div>
+
+        <!-- Message -->
+        <div class="message" style="text-align: center;">
+            <div>
+                <br><br>
+                <h1>Be my Valentine's Date</h1>
+                <h2>Can we schedule a movie/series date?</h2>
+                <h3><span id="valentineDate"></span> | Anytime you're available :)</h3>
+
+                <!-- Yes/No Buttons -->
+                <div class="button-container">
+                    <button id="yesButton">Yes</button>
+                    <button id="noButton">No</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Envelope Parts -->
+        <div class="bottom"></div>
+        <div class="left"></div>
+        <div class="right"></div>
+        <div class="top"></div>
+    </div>
+
+    <!-- Modal for Cat GIF -->
+    <div id="catModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="catGif" src="" alt="Cat Reaction" style="width: 100%; max-width: 400px;">
+        </div>
+    </div>
+
+    <!-- Link JavaScript -->
+    <script src="main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose a Cuisine</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f3e6d0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            background: #fff7e6;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .cuisine-option {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        .cuisine-option img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+        .cuisine-option.selected {
+            border: 3px solid #e4b6b6;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .next-button {
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            background-color: #e4b6b6;
+            color: black;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CHOOSE A CUISINE</h1>
+        <div class="grid">
+            <div class="cuisine-option" onclick="selectCuisine(this, 'Japanese')">
+                <img src="./assets/jap.jpg" alt="Japanese">
+                <p>Japanese</p>
+            </div>
+            <div class="cuisine-option" onclick="selectCuisine(this, 'Chinese')">
+                <img src="./assets/chinese.jpg" alt="Chinese">
+                <p>Chinese</p>
+            </div>
+            <div class="cuisine-option" onclick="selectCuisine(this, 'Filipino')">
+                <img src="./assets/filipino.jpeg" alt="Filipino">
+                <p>Filipino</p>
+            </div>
+            <div class="cuisine-option" onclick="selectCuisine(this, 'American')">
+                <img src="./assets/american.jpg" alt="American">
+                <p>American</p>
+            </div>
+            <div class="cuisine-option" onclick="selectCuisine(this, 'Italian')">
+                <img src="./assets/italian.png" alt="Italian">
+                <p>Italian</p>
+            </div>
+            <div class="cuisine-option" onclick="selectCuisine(this, 'Surprise me')">
+                <img src="./assets/question.webp" alt="Surprise">
+                <p>Surprise me</p>
+            </div>
+        </div>
+        <button class="next-button" onclick="goToNext()">NEXT</button>
+    </div>
+
+    <script>
+        let selectedCuisine = '';
+
+        function selectCuisine(element, cuisine) {
+            document.querySelectorAll('.cuisine-option').forEach(option => option.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedCuisine = cuisine;
+        }
+
+        function goToNext() {
+            if (selectedCuisine) {
+                localStorage.setItem("selectedCuisine", selectedCuisine);
+                window.location.href = 'activity.html';
+            } else {
+                alert('Please select a cuisine before proceeding.');
+            }
+        }
+    </script>
+</body>
+</html>

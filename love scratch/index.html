@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Scratch</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fceae8;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            perspective: 1000px;
+        }
+
+        .card-container {
+            position: relative;
+            width: 95%;
+            max-width: 800px;
+            aspect-ratio: 5 / 3;
+            transform-style: preserve-3d;
+            transition: transform 1s ease-in-out;
+        }
+
+        .flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+        }
+
+        .scratch-card, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .scratch-card {
+            background: #f8a9b8;
+        }
+
+        .card-back {
+            background: #ff6f91;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            transform: rotateY(180deg);
+        }
+
+        .text-section {
+            width: 100%;
+            text-align: center;
+            padding: 15px;
+        }
+
+        h2 {
+            font-size: 50px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            margin: 0;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+
+        .tagline {
+            font-size: 22px;
+            font-style: italic;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 15px;
+        }
+
+        .scratch-area {
+            position: relative;
+            width: 95%;
+            max-width: 400px;
+            aspect-ratio: 5 / 4;
+            margin-top: 25px;
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            display: block;
+        }
+
+        @media (min-width: 768px) {
+            .scratch-card {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+
+            .text-section {
+                width: 50%;
+            }
+
+            .scratch-area {
+                width: 50%;
+                max-width: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container" id="flipCard">
+        <div class="card-inner">
+            <div class="scratch-card">
+                <div class="text-section">
+                    <h2>LOVE SCRATCH</h2>
+                    <div class="tagline">A Love Secret is Hidden Here... Scratch to Discover!</div>
+                </div>
+                <div class="scratch-area">
+                    <img src="./assets/cat.jpg" alt="Hidden Love Image" id="hiddenImage">
+                    <canvas id="scratchCanvas"></canvas>
+                </div>
+            </div>
+            <div class="card-back">
+                ❤️ "You are loved more than you know!" ❤️
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("scratchCanvas");
+        const ctx = canvas.getContext("2d");
+        const flipCard = document.getElementById("flipCard");
+
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+
+        ctx.fillStyle = "#ccc";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        let isDrawing = false;
+        let scratchedEnough = false;
+        let isFlipped = false;
+
+        function getMousePos(canvas, event) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: event.touches ? event.touches[0].clientX - rect.left : event.clientX - rect.left,
+                y: event.touches ? event.touches[0].clientY - rect.top : event.clientY - rect.top
+            };
+        }
+
+        function scratch(event) {
+            if (!isDrawing) return;
+            event.preventDefault();
+            const pos = getMousePos(canvas, event);
+            ctx.globalCompositeOperation = "destination-out";
+            ctx.beginPath();
+            ctx.arc(pos.x, pos.y, 25, 0, Math.PI * 2);
+            ctx.fill();
+
+            checkScratchProgress();
+        }
+
+        function checkScratchProgress() {
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            let clearedPixels = 0;
+            let totalPixels = imageData.data.length / 4;
+
+            for (let i = 0; i < imageData.data.length; i += 4) {
+                if (imageData.data[i + 3] === 0) { // Transparency check
+                    clearedPixels++;
+                }
+            }
+
+            let scratchPercentage = (clearedPixels / totalPixels) * 100;
+
+            if (scratchPercentage > 70) {
+                scratchedEnough = true;
+            }
+        }
+
+        function startDrawing() { isDrawing = true; }
+        function stopDrawing() { isDrawing = false; }
+
+        canvas.addEventListener("mousedown", startDrawing);
+        canvas.addEventListener("mouseup", stopDrawing);
+        canvas.addEventListener("mousemove", scratch);
+        canvas.addEventListener("touchstart", startDrawing);
+        canvas.addEventListener("touchend", stopDrawing);
+        canvas.addEventListener("touchmove", scratch);
+
+        flipCard.addEventListener("dblclick", function () {
+            if (scratchedEnough) {
+                if (isFlipped) {
+                    flipCard.classList.remove("flipped");
+                } else {
+                    flipCard.classList.add("flipped");
+                }
+                isFlipped = !isFlipped;
+            }
+        });
+    </script>
+</body>
+</html>

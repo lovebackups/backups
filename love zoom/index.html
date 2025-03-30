@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie?</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/14507/14507162.png" type="image/png">
+</head>
+<body>
+    <div class="container">
+        <h1>Will you go to the cinema with me?</h1>
+        <div class="buttons">
+            <button class="yes-button" onclick="handleYesClick()">Yes</button>
+            <button class="no-button" onclick="handleNoClick()">No</button>
+        </div>
+        <div class="gif_container">
+            <img src="https://media.giphy.com/media/20BgaKm1pDakU39byD/giphy.gif?cid=ecf05e479kjwra9r3xn9n5ppqt6qzl0uq416p7r1yycekulr&ep=v1_stickers_search&rid=giphy.gif&ct=s" 
+                alt="Cute Cat GIF">
+        </div>
+    </div>
+
+    <!-- Background Music (Autoplay Enabled) -->
+    <audio id="backgroundMusic" loop autoplay muted>
+        <source src="./assets/Old Love.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <button onclick="toggleMusic()" class="music-button">🔊 Unmute Music</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

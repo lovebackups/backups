@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Time Together</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fdf6e4;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            flex-direction: column;
+        }
+        .container {
+            background: #fff7e6;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+        .countdown {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 48px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .countdown div {
+            background: black;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 0 5px;
+        }
+        .label {
+            font-size: 14px;
+            color: #333;
+            margin-top: 5px;
+        }
+        .back-button {
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            background-color: #cfe2f3;
+            color: black;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>OUR TIME TOGETHER</h1>
+        <div class="countdown">
+            <div id="days">00</div> :
+            <div id="hours">00</div> :
+            <div id="minutes">00</div> :
+            <div id="seconds">00</div>
+        </div>
+        <div class="label">DAYS &nbsp;&nbsp; HRS &nbsp;&nbsp; MINS &nbsp;&nbsp; SECS</div>
+        <button class="back-button" onclick="window.location.href='dash.html'">BACK</button>
+    </div>
+
+    <script>
+        function calculateTimeTogether(startDate) {
+            let start = new Date(startDate);
+            let now = new Date();
+            let difference = now - start;
+
+            let days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            let hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+        }
+        
+        setInterval(() => {
+            calculateTimeTogether('2024-09-23'); // date format "yyyy-mm-dd" Change this date to the user's relationship start date
+        }, 1000);
+    </script>
+</body>
+</html>

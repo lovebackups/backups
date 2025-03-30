@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love, Gaevryll</title>
+    <link rel="icon" type="image/png" href="https://www.pngplay.com/wp-content/uploads/15/Purple-Heart-PNG-HD-Quality.png">
+
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url(https://i.pinimg.com/736x/5d/f2/ff/5df2ff330f3b8a587c07c9f92d78615b.jpg) no-repeat center center/cover;
+            text-align: center;
+        }
+        .text-container {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 24px;
+            color: #7d5ba6;
+            background: rgba(255, 220, 255, 0.5);
+            padding: 10px 20px;
+            border-radius: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 2px solid #7d5ba6;
+        }
+    </style>
+</head>
+<body>
+    <!--<iframe src="audio.html" style="display: none;"></iframe>-->
+
+    <div class="text-container" id="typewriter"></div>
+
+    <script src="./assets/audio.js"></script> 
+    <script>
+        const text = "love, gaevryll";
+        let index = 0;
+
+        function typeWriter() {
+            if (index < text.length) {
+                document.getElementById("typewriter").innerHTML += text.charAt(index);
+                index++;
+                setTimeout(typeWriter, 150);
+            } else {
+                document.getElementById("typewriter").style.borderRight = "none";
+            }
+        }
+        
+        window.onload = typeWriter;
+    </script>
+</body>
+</html>

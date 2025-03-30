@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Letter</title>
+    <link rel="icon" type="image/png" href="https://www.pngplay.com/wp-content/uploads/15/Purple-Heart-PNG-HD-Quality.png">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url(https://i.pinimg.com/736x/5d/f2/ff/5df2ff330f3b8a587c07c9f92d78615b.jpg) no-repeat center center/cover;
+            text-align: center;
+        }
+
+        .window {
+            position: relative;
+            width: 500px;
+            height: 350px;
+            background: #fdf6e3;
+            border: 8px solid #2233aa;
+            padding: 20px;
+            box-shadow: 5px 5px 0px #ffb6c1;
+            border-radius: 5px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .title-bar {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: #ff5da2;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            border-radius: 5px 5px 0 0;
+            border: 4px solid #2233aa;
+        }
+
+        .title-bar .dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: #2233aa;
+            display: inline-block;
+        }
+
+        .content {
+            flex-grow: 1;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            color: #2233aa;
+            overflow-y: auto;
+            padding: 10px;
+            text-align: left;
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .nav-button, .back-button {
+            background-color: #704c8b;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .back-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!--<iframe src="audio.html" style="display: none;"></iframe>-->
+
+    <div class="window">
+        <div class="title-bar">
+            <div class="dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+        <div class="content" id="message"></div>
+        <div class="navigation">
+            <button class="nav-button" onclick="prevPage()">Prev</button>
+            <button class="nav-button" onclick="nextPage()">Next</button>
+        </div>
+    </div>
+
+    <div class="back-container">
+        <button class="back-button" onclick="location.href='./two.html'">Back</button>
+    </div>
+
+    <script src="./assets/audio.js"></script> 
+    <script>
+        const pages = [
+            `To the love of my life,\n\nHappy Valentine's Day to the most handsome, sassiest, and incredibly thoughtful man I know!\n\nToday, more than any other day, I want to express my unwavering love. Knowing you love me as much as I love you gives me such peace and reassurance.`,
+            `It's hard to believe that it's only been a few short months since we first met on November 2nd, 2024.\n\nMeeting you felt like finding a missing piece of my heart, one I never knew was missing. Every moment with you is a gift I cherish, and you are the most beautiful gift of all.`,
+            `You stayed up until 12 AM your time – that's 6 AM here – just to talk to me.\n\nThat wasn't just a conversation; it was an act of pure love and devotion. It was a testament to your dedication, your willingness to bridge the distance, all to connect with me.`,
+            `You're not just my boyfriend; you're my best friend, my confidante, my rock.\n\nYou listen to my rambling stories, comfort me when I need it, and always make me smile. The fact that you sacrifice your sleep just to be with me reassures me that our love is strong.`,
+            `This Valentine's Day, I want to express my deepest gratitude.\n\nThank you for your love, patience, humor, and for making me feel so special.\n\nI love you more than words can express, and knowing I have you reassures me completely.\n\nWith all my love and a million kisses,\nGab` 
+        ];
+
+        let currentPage = 0;
+
+        function updateMessage() {
+            document.getElementById("message").innerText = pages[currentPage];
+        }
+
+        function nextPage() {
+            if (currentPage < pages.length - 1) {
+                currentPage++;
+                updateMessage();
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                updateMessage();
+            }
+        }
+
+        function goBack() {
+            window.location.href = "./two.html";
+        }
+
+        updateMessage();
+    </script>
+</body>
+</html>

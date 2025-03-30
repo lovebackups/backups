@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link ref="stylesheet" href="./assets/two.css">
+    <title>Love Playlist</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <link rel="icon" type="image/png" href="https://www.pngplay.com/wp-content/uploads/15/Purple-Heart-PNG-HD-Quality.png">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url(https://i.pinimg.com/736x/5d/f2/ff/5df2ff330f3b8a587c07c9f92d78615b.jpg) no-repeat center center/cover;
+            text-align: center;
+        }
+
+        .player {
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .player img {
+            max-width: 1000px; /* Adjust width for a medium size */
+            height: auto;
+            display: block;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .nav-button, .back-button {
+            background-color: #704c8b;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .back-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!--<iframe src="audio.html" style="display: none;"></iframe>-->
+    <div class="player">
+        <img src="./assets/scanme.png">
+    </div>
+    <div class="back-container">
+        <button class="back-button" onclick="location.href='./two.html'">Back</button>
+    </div>
+<script src="./assets/audio.js"></script> 
+<script src="./assets/script.js"></script>
+</body>
+</html>

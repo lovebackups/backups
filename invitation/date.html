@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose a Date</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f3e6d0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            background: #fff7e6;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+        input[type="date"] {
+            font-size: 18px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .next-button {
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            background-color: #e4b6b6;
+            color: black;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CHOOSE A DATE</h1>
+        <input type="date" id="datePicker">
+        <button class="next-button" onclick="goToNext()">NEXT</button>
+    </div>
+
+    <script>
+        function goToNext() {
+            const selectedDate = document.getElementById('datePicker').value;
+            if (selectedDate) {
+                localStorage.setItem("selectedDate", selectedDate);
+                window.location.href = 'cuisine.html';
+            } else {
+                alert('Please select a date before proceeding.');
+            }
+        }
+    </script>
+</body>
+</html>

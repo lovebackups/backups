@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url(https://i.pinimg.com/736x/5d/f2/ff/5df2ff330f3b8a587c07c9f92d78615b.jpg) no-repeat center center/cover;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .container {
+            background: none; /* Remove the gray background */
+        }
+
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 3.5rem;
+            color: #704c8b;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        h1:hover {
+            animation: bounce 0.5s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .start-btn {
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.5rem;
+            color: #704c8b;
+            background: #eaffb0;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            .start-btn {
+                font-size: 0.8rem;
+                padding: 10px 20px;
+            }
+        }

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose an Activity</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f3e6d0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            background: #fff7e6;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .activity-option {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        .activity-option img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+        .activity-option.selected {
+            border: 3px solid #e4b6b6;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .next-button {
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            background-color: #e4b6b6;
+            color: black;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>WHAT ARE WE DOING AFTER?</h1>
+        <div class="grid">
+            <div class="activity-option" onclick="selectActivity(this, 'Karaoke')">
+                <img src="./assets/karaoke.jpg" alt="Karaoke">
+                <p>Karaoke</p>
+            </div>
+            <div class="activity-option" onclick="selectActivity(this, 'Movie')">
+                <img src="./assets/movie.jpg" alt="Movie">
+                <p>Movie</p>
+            </div>
+            <div class="activity-option" onclick="selectActivity(this, 'Photobooth')">
+                <img src="./assets/photobooth.jpeg" alt="Photobooth">
+                <p>Photobooth</p>
+            </div>
+            <div class="activity-option" onclick="selectActivity(this, 'Arcade')">
+                <img src="./assets/arcade.jpg" alt="Arcade">
+                <p>Arcade</p>
+            </div>
+            <div class="activity-option" onclick="selectActivity(this, 'Stroll')">
+                <img src="./assets/stroll.jpg" alt="Stroll">
+                <p>Stroll</p>
+            </div>
+            <div class="activity-option" onclick="selectActivity(this, 'Surprise me')">
+                <img src="./assets/question.webp" alt="Surprise">
+                <p>Surprise me</p>
+            </div>
+        </div>
+        <button class="next-button" onclick="goToNext()">NEXT</button>
+    </div>
+
+    <script>
+        let selectedActivity = '';
+
+        function selectActivity(element, activity) {
+            document.querySelectorAll('.activity-option').forEach(option => option.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedActivity = activity;
+        }
+
+        function goToNext() {
+            if (selectedActivity) {
+                localStorage.setItem("selectedActivity", selectedActivity);
+                window.location.href = "wait.html";
+            } else {
+                alert('Please select an activity before proceeding.');
+            }
+        }
+    </script>
+</body>
+</html>

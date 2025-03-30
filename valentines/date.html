@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4713/4713789.png" type="image/png">
+    <title>Date Picker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #fbeeee;
+        }
+        h2 {
+            color: #e57399;
+        }
+        .calendar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        input[type="date"] {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        button {
+            background-color: #e57399;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #d15479;
+        }
+    </style>
+</head>
+<body>
+    <h2>When are you free?</h2>
+    <p><strong>[select a date]</strong></p>
+    <div class="calendar-container">
+        <input type="date" id="datePicker">
+        <button onclick="submitDate()">next</button>
+    </div>
+
+    <script>
+        function submitDate() {
+            let selectedDate = document.getElementById("datePicker").value;
+            
+            if (selectedDate) {
+                // Redirect to flower.html
+                window.location.href = "flower.html";
+            } else {
+                alert("Please select a date before proceeding.");
+            }
+        }
+    </script>
+</body>
+</html>

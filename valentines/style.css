@@ -1,0 +1,393 @@
+body{
+    font-family: helvetica, ariel ,san-serif;
+  }
+  /* The Modal (background) */
+  .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 0px; /* Location of the box */
+      padding-bottom: 100px;
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(255, 174, 197); /* Fallback color */
+      background-color: rgba(255, 197, 204, 0.979); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+      position: relative;
+      margin: auto;
+      padding: 0;
+      width: 80%;
+      -webkit-animation-name: animatetop;
+      -webkit-animation-duration: 0.4s;
+      animation-name: animatetop;
+      animation-duration: 0.4s
+  }
+  
+  /* Add Animation */
+  @-webkit-keyframes animatetop {
+      from {top:-300px; opacity:0} 
+      to {top:0; opacity:1}
+  }
+  
+  @keyframes animatetop {
+      from {top:-300px; opacity:0}
+      to {top:0; opacity:1}
+  }
+  
+  
+  .frame{
+      width: 600px;
+      height: 350px;
+      margin: 250px auto 0;
+      position: relative;
+      background: #ffb6d2;
+      border-radius:0 0 40px 40px; 
+  }
+  #button_open_envelope{
+      width: 180px;
+      height: 30px;
+      position: absolute;
+      z-index: 311;
+      top: 250px;
+      left: 208px;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 26px;
+      padding:15px 0; 
+      border: 2px solid #fff;
+    transition: all .3s ease-in-out;
+  }
+  #button_open_envelope:hover{
+      background: #fff5ed;
+      color: #ff76a8;
+      transform:scale(1.1);
+      cursor: pointer;
+  }
+  .message{
+      position: relative;
+      width: 580px;
+      min-height:300px;
+      height: auto;
+      background: #fff;
+      margin: 0 auto;
+      top: 30px;
+      box-shadow: 0 0 5px 2px #333;
+      transition:2s ease-in-out;
+      transition-delay:1.5s;
+      z-index: 300;
+  }
+  .left,.right,.top{width: 0;	height: 0;position:absolute;top:0;z-index: 310;}
+  .left{	
+      border-left: 300px solid #ff82b2;
+      border-top: 160px solid transparent;
+      border-bottom: 160px solid transparent;
+  }
+  .right{	
+      border-right: 300px solid #ec85ac;
+      border-top: 160px solid transparent;
+      border-bottom: 160px solid transparent;;
+      left:300px;
+  }
+  .top{	
+      border-right: 300px solid transparent;
+      border-top: 200px solid #ffbed3;
+      border-left: 300px solid transparent;
+      transition:transform 1s,border 1s, ease-in-out;
+      transform-origin:top;
+      transform:rotateX(0deg);
+      z-index: 500;
+  }
+  .bottom{
+      width: 600px;
+      height: 190px;
+      position: absolute;
+      background: #ebaec1;
+      top: 160px;
+      border-radius:0 0 30px 30px;
+      z-index: 310; 
+  }
+  
+  .open{
+      transform-origin:top;
+      transform:rotateX(180deg);
+      transition:transform .7s,border .7s,z-index .7s ease-in-out;
+      border-top: 200px solid rgb(255, 172, 200);
+      z-index: 200;
+  }
+  .pull{
+  -webkit-animation:message_animation 2s 1 ease-in-out;
+      animation:message_animation 2s 1 ease-in-out;
+    -webkit-animation-fill-mode:forwards;
+    animation-fill-mode:forwards;
+      -webkit-animation-delay:.9s;
+      animation-delay:.45s;
+      transition:1.5s;
+      transition-delay:1s;
+      z-index: 300;
+  }
+  
+  /* Button Container */
+.button-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Yes/No Buttons */
+button {
+    font-size: 18px;
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    font-weight: bold;
+}
+
+#yesButton {
+    background-color: #fdb8d0;
+    color: white;
+    border: 2px solid white;
+}
+
+#yesButton:hover {
+    background-color: #9ebaa5;
+}
+
+#noButton {
+    background-color: #d6b9c6;
+    color: white;
+    border: 2px solid white;
+}
+
+#noButton:hover {
+    background-color: #c8c2ad;
+}
+
+/* Ensure modal is always on top */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999; /* Increased to be on top of everything */
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+/* Ensure modal content is above everything */
+.modal-content {
+    background: white;
+    margin: auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px 2px #333;
+    position: relative;
+    z-index: 10000; /* Ensures it is always visible */
+}
+
+/* Ensure GIF is displayed correctly */
+.modal-content img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* Close Button */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #333;
+    z-index: 10001; /* Ensures close button is clickable */
+}
+
+.close:hover {
+    color: red;
+}
+
+/* Ensure the envelope is below the modal */
+.frame {
+    z-index: 100; /* Lower than modal */
+}
+
+.message {
+    z-index: 300; /* Lower than modal but above envelope */
+}
+
+.top {
+    z-index: 500; /* Lower than modal */
+}
+
+
+  
+  @-webkit-keyframes message_animation {
+      0%{
+          transform:translatey(0px);
+          z-index: 300;
+          transition: 1s ease-in-out;
+      }
+      50%{
+          transform:translatey(-340px);
+          z-index: 300;
+          transition: 1s ease-in-out;
+      }
+      51%{
+          transform:translatey(-340px);
+          z-index: 350;
+          transition: 1s ease-in-out;
+      }
+      100%{
+          transform:translatey(0px);
+          z-index: 350;
+          transition: 1s ease-in-out;
+      }
+  }
+  @keyframes message_animation {
+      0%{
+          transform:translatey(0px);
+          z-index: 300;
+          transition: 1s ease-in-out;
+      }
+      50%{
+          transform:translatey(-340px);
+          z-index: 300;
+          transition: 1s ease-in-out;
+      }
+      51%{
+          transform:translatey(-340px);
+          z-index: 350;
+          transition: 1s ease-in-out;
+      }
+      100%{
+          transform:translatey(0px);
+          z-index: 350;
+          transition: 1s ease-in-out;
+      }
+  }
+
+/* 🔹 Fixing Overlapping on Small Screens */
+@media (max-width: 768px) {
+    .frame {
+        width: 90%;
+        height: auto;
+        padding-bottom: 20px;
+        margin-top: 80px;
+    }
+
+    .message {
+        width: 90%;
+        font-size: 16px;
+        padding: 15px;
+    }
+
+    #button_open_envelope {
+        font-size: 20px;
+        width: 160px;
+        padding: 10px 0;
+        top: 220px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .top {
+        border-right: 200px solid transparent;
+        border-top: 130px solid #ffbed3;
+        border-left: 200px solid transparent;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .bottom {
+        width: 90%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    button {
+        font-size: 16px;
+        width: 100px;
+    }
+
+    .modal-content {
+        width: 90%;
+        max-width: 350px;
+    }
+}
+
+/* Mobile Phones */
+@media (max-width: 480px) {
+    .frame {
+        width: 95%;
+        height: auto;
+        margin-top: 80px;
+    }
+
+    .message {
+        width: 95%;
+        font-size: 14px;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    h2, h3 {
+        font-size: 16px;
+    }
+
+    #button_open_envelope {
+        font-size: 16px;
+        width: 130px;
+        padding: 8px 0;
+        top: 200px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .top {
+        border-right: 180px solid transparent;
+        border-top: 120px solid #ffbed3;
+        border-left: 180px solid transparent;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .bottom {
+        width: 95%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    button {
+        font-size: 14px;
+        width: 80%;
+        max-width: 120px;
+        margin: auto;
+    }
+
+    .modal-content {
+        width: 90%;
+        max-width: 320px;
+    }
+}

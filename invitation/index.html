@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Invite</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fdf6e4;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            background: #fff7e6;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+        .gif-container {
+            margin-top: 20px;
+        }
+        .gif-container img {
+            width: 250px;
+            border-radius: 10px;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .yes {
+            background-color: #e4b6b6;
+            color: black;
+        }
+        .no {
+            background-color: #cfe2f3;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>HEY! CAN YOU BE MY DATE FOR VALENTINES?</h1>
+        <div class="gif-container">
+            <img src="https://media.giphy.com/media/131Q2gKssUNCwM/giphy.gif" alt="Valentine's Gif">
+        </div>
+        <div class="buttons">
+            <button class="yes" onclick="redirectToDatePage()">YES</button>
+            <button class="no" onclick="respond('no')">NO</button>
+        </div>
+    </div>
+
+    <script>
+        function redirectToDatePage() {
+            window.location.href = 'date.html'; // Redirects to the date selection page
+        }
+    </script>
+</body>
+</html>
